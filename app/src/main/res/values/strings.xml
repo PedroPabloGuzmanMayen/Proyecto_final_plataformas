@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Proyecto final</string>
+    <string name="CreateTask">Create Task</string>
 </resources>
