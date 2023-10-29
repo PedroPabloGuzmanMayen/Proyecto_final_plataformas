@@ -2,7 +2,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Lab5_ComposeTheme {
+            Proyecto_final_plataformas {
                 // Definir la IU de inicio de sesión aquí
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -19,20 +19,43 @@ class LoginActivity : AppCompatActivity() {
 @Composable
 fun PreviewLoginScreen() {
     Lab5_ComposeTheme {
-        // Vista previa de la IU de inicio de sesión
         LoginScreen()
     }
 }
 
 @Composable
 fun LoginScreen() {
-    // Define la interfaz de usuario de inicio de sesión aquí
-    // Puedes usar Column, TextField, Button, etc. según tus necesidades
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Agrega aquí tus elementos de inicio de sesión (TextField, Button, etc.)
+        // Alineado al centro lo màs posible ambas cajas
+        Text(
+            text = "User:",
+            modifier = Modifier.padding(top = 16.dp)
+        )
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Usuario") },
+        )
+
+        Text(
+            text = "Password:",
+            modifier = Modifier.padding(top = 16.dp)
+        )
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Contraseña") },
+            keyboardType = KeyboardType.Password,
+        )
+
+        // Botón de log in
+        Button(
+            modifier = Modifier.padding(top = 16.dp),
+            onClick = { /* Acción del botón */ }
+        ) {
+            Text("Iniciar sesión")
+        }
     }
 }
