@@ -31,6 +31,13 @@ fun LoginScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Alineado al centro lo màs posible ambas cajas
+        // Seccion de usuario
+       Image(
+           modifier = Modifier.padding(8.dp),
+           // Se utilizarà una imagen que android studio trae por defecto
+           imageVector = Icons.Default.AccountCircle,
+           contentDescription = "Icono de user"
+       )
         Text(
             text = "User:",
             modifier = Modifier.padding(top = 16.dp)
@@ -39,7 +46,13 @@ fun LoginScreen() {
             modifier = Modifier.fillMaxWidth(),
             label = { Text("Usuario") },
         )
-
+        // Seccion contraseña
+        Image(
+            modifier = Modifier.padding(8.dp),
+            // Nuevamente se utilizarà una imagen por defecto de android studio
+            imageVector = Icons.Default.Lock,
+            contentDescription = "Icono de password"
+        )
         Text(
             text = "Password:",
             modifier = Modifier.padding(top = 16.dp)
