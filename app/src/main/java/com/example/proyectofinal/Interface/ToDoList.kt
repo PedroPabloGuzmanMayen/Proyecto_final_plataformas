@@ -44,7 +44,7 @@ fun ToDoScreen(){
     ){
         Icon(
             imageVector = Icons.Default.Check,
-            contentDescription = "Boton add for any item"
+            contentDescription = "Boton add"
         )
     }
 }
