@@ -35,6 +35,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 
@@ -48,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavController
+import com.example.proyectofinal.Task.Task
 
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
@@ -69,6 +71,7 @@ fun TaskScreen(navController: NavController){
     var name by remember { mutableStateOf("") }
     var pickedDate by remember{ mutableStateOf(LocalDate.now()) }
     var pickedHour by remember{ mutableStateOf(LocalTime.now()) }
+    val contentList = remember { mutableStateListOf<Task>() }
     val formattedDate by remember {
         derivedStateOf {
             DateTimeFormatter.ofPattern("MMM dd yyyy").format(pickedDate)
@@ -129,7 +132,10 @@ fun TaskScreen(navController: NavController){
             }
             Spacer(modifier = Modifier.size(30.dp))
 
-            Button(onClick = { /*TODO*/ },
+            Button(onClick = {
+                contentList.add(Task(name, formattedDate, formattedTime))
+                navController.popBackStack()
+            },
                 colors = ButtonDefaults.buttonColors("#c92012".color)) {
                 Text(text = "Guardar")
             }
@@ -164,10 +170,6 @@ fun TaskScreen(navController: NavController){
 
 }
 
-
-fun content(){
-
-}
 
 val String.color
     get() = Color(android.graphics.Color.parseColor(this))
