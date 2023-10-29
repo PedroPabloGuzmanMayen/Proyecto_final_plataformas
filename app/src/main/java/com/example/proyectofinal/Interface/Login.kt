@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    Proyecto_final_plataformas {
+    Lab5_ComposeTheme {
         LoginScreen()
     }
 }

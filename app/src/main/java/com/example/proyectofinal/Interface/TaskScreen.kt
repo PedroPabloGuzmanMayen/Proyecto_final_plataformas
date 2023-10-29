@@ -1,8 +1,9 @@
 package com.example.proyectofinal.Interface
 
-import android.widget.Toast
+
+
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,9 +17,10 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
+
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -39,18 +41,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
+
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavController
-import com.example.proyectofinal.R
+
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.datetime.time.timepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.vanpra.composematerialdialogs.title
-import io.github.boguszpawlowski.composecalendar.kotlinxDateTime.now
+
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -61,6 +65,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 
 fun TaskScreen(navController: NavController){
+
     var name by remember { mutableStateOf("") }
     var pickedDate by remember{ mutableStateOf(LocalDate.now()) }
     var pickedHour by remember{ mutableStateOf(LocalTime.now()) }
@@ -82,7 +87,7 @@ fun TaskScreen(navController: NavController){
             TopAppBar(title = {
                 Text(text = "Crear tarea", fontSize = 20.sp, textAlign = TextAlign.Center)
             },
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Magenta),
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = "#f27e74".color),
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack()}) {
                         Icon(
@@ -98,7 +103,6 @@ fun TaskScreen(navController: NavController){
         Column(modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
-
             TextField(value = name, onValueChange = { name = it }, label = { Text(text = "Nombre de la tarea") })
             Spacer(modifier = Modifier.size(30.dp))
             Row(
@@ -106,19 +110,27 @@ fun TaskScreen(navController: NavController){
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button(onClick = { dateDialogState.show() }) {
+                Button(onClick = { dateDialogState.show() },
+                colors = ButtonDefaults.buttonColors("#03fc77".color)) {
                    Text("Selecciona la fecha")
                 }
                 Text(text = formattedDate, modifier = Modifier.padding(10.dp))
             }
-            Button(onClick = { dateDialogState.show() },
-            colors = ButtonDefaults.buttonColors(R.color.bluegreen)) {
-                Text(text = "Selecciona la fecha")
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(onClick = { timeDialogState.show() },
+                    colors = ButtonDefaults.buttonColors("#03fc77".color)) {
+                    Text("Selecciona la hora")
+                }
+                Text(text = formattedTime, modifier = Modifier.padding(10.dp))
             }
-            Button(onClick = { timeDialogState.show() }) {
-                Text(text = "Selecciona la hora")
-            }
-            Button(onClick = { /*TODO*/ }) {
+            Spacer(modifier = Modifier.size(30.dp))
+
+            Button(onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors("#c92012".color)) {
                 Text(text = "Guardar")
             }
         }
@@ -136,6 +148,18 @@ fun TaskScreen(navController: NavController){
         title("Selecciona la fecha")
         datepicker(pickedDate) { pickedDate = it }
     }
+    MaterialDialog(
+        dialogState = timeDialogState,
+        buttons = {
+            positiveButton("Ok"){
+
+            }
+            negativeButton("Cancel")
+        }
+    ) {
+        title("Selecciona la hora")
+        timepicker(pickedHour) { pickedHour = it }
+    }
 
 
 }
@@ -144,4 +168,8 @@ fun TaskScreen(navController: NavController){
 fun content(){
 
 }
+
+val String.color
+    get() = Color(android.graphics.Color.parseColor(this))
+
 
