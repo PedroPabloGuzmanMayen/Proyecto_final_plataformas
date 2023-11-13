@@ -2,4 +2,5 @@
     <string name="app_name">Proyecto final</string>
     <string name="CreateTask">Create Task</string>
     <string name="title_activity_main2">MainActivity2</string>
+    <string name="User">User</string>
 </resources>

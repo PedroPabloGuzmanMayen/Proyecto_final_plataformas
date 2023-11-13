@@ -6,14 +6,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -47,6 +50,13 @@ fun ListScreen(navController: NavController, sharedViewModel: SharedViewModel) {
             )
 
 
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                navController.navigate(AppScreens.TaskDetails.route)
+            }) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
+            }
         }
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding), horizontalAlignment = Alignment.CenterHorizontally){
@@ -56,29 +66,22 @@ fun ListScreen(navController: NavController, sharedViewModel: SharedViewModel) {
                 }
             }
             Spacer(modifier = Modifier.size(100.dp))
-            Card(){
-
-            }
-            Row(horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.Bottom){
-                FloatingActionButton(onClick = {
-                    navController.navigate(AppScreens.TaskDetails.route)
-                }, modifier = Modifier
-                    .padding(16.dp),
-                ){
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
-
-                }
-
-            }
-
-
-
         }
     }
 }
 
 @Composable
 fun TaskItem(item: Task){
-    Text(text = item.name)
+    Card(
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp)
+    ){
+
+    }
 
 }
