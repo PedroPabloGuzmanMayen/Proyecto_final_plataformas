@@ -1,3 +1,3 @@
-package com.example.proyectofinal.Task
+package com.example.proyectofinal.Model
 
-data class Task(val name: String, val date: String, val time: String)
+data class TaskModel(val name: String, val date: String, val time: String)

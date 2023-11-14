@@ -12,10 +12,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,13 +24,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.proyectofinal.R
-import com.example.proyectofinal.Task.Task
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController){
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var user: String? = "dalas"
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -80,7 +78,9 @@ fun LoginScreen(navController: NavController){
         // Botón de log in
         Button(
             modifier = Modifier.padding(top = 16.dp),
-            onClick = { navController.navigate("Home") }
+            onClick = {
+
+                navController.navigate("Home/${user}") }
         ) {
             Text("Iniciar sesión")
         }

@@ -3,9 +3,12 @@ package com.example.proyectofinal.Navigation
 import LoginScreen
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.proyectofinal.Interface.AddListScreen
 import com.example.proyectofinal.Interface.ListScreen
 import com.example.proyectofinal.Interface.SharedViewModel
 import com.example.proyectofinal.Interface.TaskScreen
@@ -23,8 +26,18 @@ fun Navigation(){
         composable(AppScreens.Register.route){
 
         }
-        composable(AppScreens.Home.route){
-            ListScreen(navController, sharedViewModel = sharedViewModel)
+
+        composable(AppScreens.createList.route + "/{username}",
+        arguments = listOf(navArgument(name="username"){
+            type = NavType.StringType
+        })){ backStackEntry ->
+            AddListScreen(navController = navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"))
+        }
+        composable(AppScreens.Home.route + "/{username}",
+            arguments = listOf(navArgument(name="username"){
+                type = NavType.StringType
+        })) { backStackEntry ->
+            ListScreen(navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"))
         }
         composable(AppScreens.TaskDetails.route){
             TaskScreen(navController = navController, sharedViewModel = sharedViewModel)

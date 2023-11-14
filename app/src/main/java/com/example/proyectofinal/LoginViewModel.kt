@@ -1,4 +1,9 @@
 package com.example.proyectofinal
 
-class LoginViewModel {
+import androidx.lifecycle.ViewModel
+
+class LoginViewModel(private val repository: UserRepository = UserRepository()): ViewModel(){
+
+
+
 }

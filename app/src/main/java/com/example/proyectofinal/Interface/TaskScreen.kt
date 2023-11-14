@@ -49,7 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavController
-import com.example.proyectofinal.Task.Task
+import com.example.proyectofinal.Model.TaskModel
 
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
@@ -71,7 +71,7 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel){
     var name by remember { mutableStateOf("") }
     var pickedDate by remember{ mutableStateOf(LocalDate.now()) }
     var pickedHour by remember{ mutableStateOf(LocalTime.now()) }
-    val contentList = remember { mutableStateListOf<Task>() }
+    val contentList = remember { mutableStateListOf<TaskModel>() }
     val formattedDate by remember {
         derivedStateOf {
             DateTimeFormatter.ofPattern("MMM dd yyyy").format(pickedDate)
@@ -133,7 +133,7 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel){
             Spacer(modifier = Modifier.size(30.dp))
 
             Button(onClick = {
-                val newTask = Task(name, formattedDate, formattedTime)
+                val newTask = TaskModel(name, formattedDate, formattedTime)
                 sharedViewModel.contentList.add(newTask) // Add the new task to the shared list
                 navController.popBackStack()
             },
