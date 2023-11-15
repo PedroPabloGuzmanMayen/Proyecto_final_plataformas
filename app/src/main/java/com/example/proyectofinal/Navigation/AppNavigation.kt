@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.proyectofinal.Interface.ActivityScreen
 import com.example.proyectofinal.Interface.AddListScreen
 import com.example.proyectofinal.Interface.ListScreen
 import com.example.proyectofinal.Interface.SharedViewModel
@@ -39,8 +40,21 @@ fun Navigation(){
         })) { backStackEntry ->
             ListScreen(navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"))
         }
-        composable(AppScreens.TaskDetails.route){
-            TaskScreen(navController = navController, sharedViewModel = sharedViewModel)
+        composable(AppScreens.ActivityList.route + "/{username}/{listName}",
+            arguments = listOf(navArgument(name="username"){
+                type = NavType.StringType
+            }, navArgument(name="listName"){
+                type = NavType.StringType
+            })) { backStackEntry ->
+            ActivityScreen(navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"), listName = backStackEntry.arguments?.getString("listName"))
+        }
+        composable(AppScreens.TaskDetails.route + "/{username}/{listName}",
+            arguments = listOf(navArgument(name="username"){
+                type = NavType.StringType
+            }, navArgument(name="listName"){
+                type = NavType.StringType
+            })) { backStackEntry ->
+            TaskScreen(navController = navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"), listName = backStackEntry.arguments?.getString("listName"))
         }
     }
 

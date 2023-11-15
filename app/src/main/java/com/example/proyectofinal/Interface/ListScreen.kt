@@ -1,5 +1,6 @@
 package com.example.proyectofinal.Interface
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,7 +60,7 @@ fun ListScreen(navController: NavController, sharedViewModel: SharedViewModel, u
 
             LazyColumn() {
                 items(contentList.size) { index ->
-                    TaskItem(item = contentList[index])
+                    TaskItem(item = contentList[index], navController, username.orEmpty())
                 }
             }
             Spacer(modifier = Modifier.size(100.dp))
@@ -68,7 +69,7 @@ fun ListScreen(navController: NavController, sharedViewModel: SharedViewModel, u
 }
 
 @Composable
-fun TaskItem(item: String){
+fun TaskItem(item: String, navController: NavController, username: String){
     Card(
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(
@@ -77,6 +78,7 @@ fun TaskItem(item: String){
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
+            .clickable(onClick = { navController.navigate("ActivityList/${username}/${item}")})
     ){
         Text(item)
     }

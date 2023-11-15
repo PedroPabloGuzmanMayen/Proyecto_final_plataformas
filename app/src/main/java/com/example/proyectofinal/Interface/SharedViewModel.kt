@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SharedViewModel(private val repository: UserRepository = UserRepository()): ViewModel() {
-    var contentList = mutableStateListOf<TaskModel>()
+    var contentList: MutableList<TaskModel> = mutableStateListOf<TaskModel>()
 
     var username: String = ""
     var lists: MutableList<String> = mutableStateListOf<String>()
@@ -26,9 +26,21 @@ class SharedViewModel(private val repository: UserRepository = UserRepository())
         }
     }
 
+    fun getActivities(username: String, category: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            contentList = repository.getUserActivities(username, category)
+        }
+    }
+
     fun addList(username: String, listName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addList(username, listName)
+        }
+    }
+
+    fun addActivity(username: String, listName: String, activity: TaskModel){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.addActivity(username, listName, activity)
         }
     }
 }

@@ -41,7 +41,7 @@ class UserRepository(private val db: FirebaseFirestore =  FirebaseFirestore.getI
 
     suspend fun getUserActivities(username: String, listName: String): MutableList<TaskModel>{
         val query = db.collection("Users").document(username).collection("Lists").document(listName).collection("Activities").get().await()
-        val list = mutableStateListOf<TaskModel>()
+        val list: MutableList<TaskModel> = mutableStateListOf<TaskModel>()
         for (document in query){
             list.add(
                 TaskModel(
@@ -67,5 +67,10 @@ class UserRepository(private val db: FirebaseFirestore =  FirebaseFirestore.getI
             "name" to listName
         )
         db.collection("Users").document(username).collection("Lists").document(listName).set(list).await()
+    }
+
+    suspend fun addActivity(username: String, listName: String, activity: TaskModel){
+
+        db.collection("Users").document(username).collection("Lists").document(listName).collection("Activities").document(activity.name).set(activity).await()
     }
 }

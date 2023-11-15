@@ -66,7 +66,7 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel){
+fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, username: String?, listName: String?){
 
     var name by remember { mutableStateOf("") }
     var pickedDate by remember{ mutableStateOf(LocalDate.now()) }
@@ -134,7 +134,10 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel){
 
             Button(onClick = {
                 val newTask = TaskModel(name, formattedDate, formattedTime)
-                sharedViewModel.contentList.add(newTask) // Add the new task to the shared list
+
+                sharedViewModel.contentList.add(newTask)
+                sharedViewModel.addActivity(username.orEmpty(), listName.orEmpty(), newTask)
+
                 navController.popBackStack()
             },
                 colors = ButtonDefaults.buttonColors("#c92012".color)) {
