@@ -13,10 +13,12 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -44,14 +46,23 @@ fun ActivityScreen(navController: NavController, sharedViewModel: SharedViewMode
                 title = {
                     Text(text = "Tus tareas", fontSize = 20.sp, textAlign = TextAlign.Center)
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = "#f27e74".color)
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = "#f27e74".color),
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack()}) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
             )
 
 
         },
+
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                navController.navigate("TaskDetails/${username}/${listName}")
+                navController.navigate("Home/${username}/${listName}")
             }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
