@@ -91,7 +91,7 @@ fun LoginScreen(navController: NavController){
             value = password,
             onValueChange = { password = it },
 
-            label = { Text("Contraseña") },
+            label = { Text(stringResource(id = R.string.Password)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
 
