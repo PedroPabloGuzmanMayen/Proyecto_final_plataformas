@@ -1,9 +1,11 @@
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -24,6 +26,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -47,6 +51,7 @@ fun LoginScreen(navController: NavController){
     var alert by remember {mutableStateOf("")}
     var userList by remember { mutableStateOf<List<String>>(emptyList()) }
     var passwordList by remember { mutableStateOf<List<String>>(emptyList()) }
+
     LaunchedEffect(key1 = true) {
         userList = viewmodel.usersList()
         passwordList = viewmodel.passwordsList()
@@ -61,13 +66,12 @@ fun LoginScreen(navController: NavController){
         // Alineado al centro lo màs posible ambas cajas
         // Seccion de usuario
        Image(
-           modifier = Modifier.padding(8.dp),
+           painter = painterResource(id = R.drawable.lightbulb),
+           contentDescription = "Icono de usuario"
            // Se utilizarà una imagen que android studio trae por defecto
-           imageVector = Icons.Default.AccountCircle,
-           contentDescription = "Icono de user"
        )
         Text(
-            text = "User:",
+            stringResource(id = R.string.User),
             modifier = Modifier.padding(top = 16.dp)
         )
         TextField(
@@ -77,14 +81,8 @@ fun LoginScreen(navController: NavController){
             label = { Text(stringResource(id = R.string.User)) },
         )
         // Seccion contraseña
-        Image(
-            modifier = Modifier.padding(8.dp),
-            // Nuevamente se utilizarà una imagen por defecto de android studio
-            imageVector = Icons.Default.Lock,
-            contentDescription = "Icono de password"
-        )
         Text(
-            text = "Password:",
+            text = stringResource(id = R.string.Password),
             modifier = Modifier.padding(top = 16.dp)
         )
         TextField(
@@ -101,25 +99,29 @@ fun LoginScreen(navController: NavController){
             modifier = Modifier.padding(top = 16.dp),
             onClick = {
                 if (userList.contains(name)) {
+
                     val index = userList.indexOf(name)
                     if (passwordList[userList.indexOf(name)] == password){
                         navController.navigate("Home/${name}")
                     }
                     else {
-                        alert = "Contraseña incorrecta"
+
+                        alert = "Usuario incorrecto"
                     }
                 } else {
-                    alert = "Usuario no registrado"
+
+                    alert = "Contraseña incorrecta"
                 }
 
             },
             colors = ButtonDefaults.buttonColors(Color.Yellow)
         ) {
-            Text("Iniciar sesión")
+            Text(stringResource(id = R.string.Login))
         }
+
+
         Text(alert)
+
+
     }
 }
-
-
-

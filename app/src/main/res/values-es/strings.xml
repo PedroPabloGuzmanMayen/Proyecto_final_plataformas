@@ -5,4 +5,7 @@
     <string name="title_activity_main2">MainActivity2</string>
     <string name="User">Usuario</string>
     <string name = "Password">Contraseña</string>
+    <string name = "Alert1">Contraseña incorrecta</string>
+    <string name = "Alert2">Usuario incorrecto</string>
+    <string name = "Login">Iniciar sesión</string>
 </resources>
