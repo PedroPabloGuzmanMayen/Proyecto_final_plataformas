@@ -62,7 +62,7 @@ fun ActivityScreen(navController: NavController, sharedViewModel: SharedViewMode
 
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                navController.navigate("Home/${username}/${listName}")
+                navController.navigate("TaskDetails/${username}/${listName}")
             }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }

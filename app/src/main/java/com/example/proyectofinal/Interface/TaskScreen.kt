@@ -2,6 +2,11 @@ package com.example.proyectofinal.Interface
 
 
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 
 import androidx.compose.foundation.layout.Column
@@ -28,7 +33,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextField
 
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -41,15 +45,19 @@ import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 
 
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.ui.unit.sp
+import androidx.core.app.AlarmManagerCompat
 
 import androidx.navigation.NavController
+import com.example.proyectofinal.AlarmReceiver
 import com.example.proyectofinal.Model.TaskModel
+import com.example.proyectofinal.R
 
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
@@ -58,7 +66,9 @@ import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.vanpra.composematerialdialogs.title
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneId
 
 import java.time.format.DateTimeFormatter
 
@@ -67,7 +77,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 
 fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, username: String?, listName: String?){
-
+    var alert by remember {mutableStateOf("")}
     var name by remember { mutableStateOf("") }
     var pickedDate by remember{ mutableStateOf(LocalDate.now()) }
     var pickedHour by remember{ mutableStateOf(LocalTime.now()) }
@@ -79,7 +89,7 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, u
     }
     val formattedTime by remember {
         derivedStateOf {
-            DateTimeFormatter.ofPattern("hh:mm").format(pickedHour)
+            DateTimeFormatter.ofPattern("hh:mm a").format(pickedHour)
         }
     }
     val dateDialogState = rememberMaterialDialogState()
@@ -88,9 +98,9 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, u
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = "Crear tarea", fontSize = 20.sp, textAlign = TextAlign.Center)
+                Text(text = stringResource(R.string.CreateTask), fontSize = 30.sp, textAlign = TextAlign.Center)
             },
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = "#f27e74".color),
+
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack()}) {
                         Icon(
@@ -106,7 +116,7 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, u
         Column(modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
-            TextField(value = name, onValueChange = { name = it }, label = { Text(text = "Nombre de la tarea") })
+            TextField(value = name, onValueChange = { name = it }, label = { Text(stringResource(id = R.string.taskname)) })
             Spacer(modifier = Modifier.size(30.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -115,7 +125,7 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, u
             ) {
                 Button(onClick = { dateDialogState.show() },
                 colors = ButtonDefaults.buttonColors("#03fc77".color)) {
-                   Text("Selecciona la fecha")
+                   Text(stringResource(id = R.string.date))
                 }
                 Text(text = formattedDate, modifier = Modifier.padding(10.dp))
             }
@@ -126,23 +136,32 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, u
             ) {
                 Button(onClick = { timeDialogState.show() },
                     colors = ButtonDefaults.buttonColors("#03fc77".color)) {
-                    Text("Selecciona la hora")
+                    Text(stringResource(id = R.string.time))
                 }
                 Text(text = formattedTime, modifier = Modifier.padding(10.dp))
             }
             Spacer(modifier = Modifier.size(30.dp))
 
             Button(onClick = {
-                val newTask = TaskModel(name, formattedDate, formattedTime)
 
-                sharedViewModel.contentList.add(newTask)
-                sharedViewModel.addActivity(username.orEmpty(), listName.orEmpty(), newTask)
+                if (pickedDate.isBefore(LocalDate.now()) || (pickedDate.isEqual(LocalDate.now()) && pickedHour.isBefore(LocalTime.now()))){
+                    alert = "La fecha no puede ser anterior a hoy"
+                }
+                else{
+                    val newTask = TaskModel(name, formattedDate, formattedTime)
 
-                navController.popBackStack()
+                    sharedViewModel.contentList.add(newTask)
+                    sharedViewModel.addActivity(username.orEmpty(), listName.orEmpty(), newTask)
+
+                    navController.popBackStack()
+
+                }
+
             },
                 colors = ButtonDefaults.buttonColors("#c92012".color)) {
-                Text(text = "Guardar")
+                Text(text = stringResource(id = R.string.Save))
             }
+            Text(alert, color = Color.Red)
         }
 
     }
@@ -178,4 +197,35 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, u
 val String.color
     get() = Color(android.graphics.Color.parseColor(this))
 
+fun scheduleAlarm(context: Context, taskName: String, date: LocalDate, time: LocalTime) {
+    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    val intent = Intent(context, AlarmReceiver::class.java).apply {
+        putExtra("taskName", taskName)
+    }
+    val pendingIntent = PendingIntent.getBroadcast(
+        context,
+        0,
+        intent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
 
+    // Combine the date and time to create a timestamp
+    val dateTime = LocalDateTime.of(date, time)
+    val timestamp = dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+
+    // Set the alarm based on the Android version
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            timestamp,
+            pendingIntent
+        )
+    } else {
+        AlarmManagerCompat.setExact(
+            alarmManager,
+            AlarmManager.RTC_WAKEUP,
+            timestamp,
+            pendingIntent
+        )
+    }
+}

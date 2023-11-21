@@ -114,13 +114,13 @@ fun LoginScreen(navController: NavController){
                 }
 
             },
-            colors = ButtonDefaults.buttonColors(Color.Yellow)
+            colors = ButtonDefaults.buttonColors("#fcb603".color)
         ) {
-            Text(stringResource(id = R.string.Login))
+            Text(stringResource(id = R.string.Login), color = Color.Black)
         }
 
 
-        Text(alert)
+        Text(alert, color = Color.Red)
 
 
     }

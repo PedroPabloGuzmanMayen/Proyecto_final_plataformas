@@ -7,4 +7,11 @@
     <string name = "Alert1">Wrong password</string>
     <string name = "Alert2">Wrong username</string>
     <string name = "Login">Login</string>
+    <string name = "Save">Save</string>
+    <string name = "date">Pick the date</string>
+    <string name = "time">Pick the time</string>
+    <string name = "taskname">Task name</string>
+    <string name = "createTask">Create task</string>
+    <string name ="YourLists">Your lists</string>
+    <string name = "Yourtasks">Your tasks</string>
 </resources>

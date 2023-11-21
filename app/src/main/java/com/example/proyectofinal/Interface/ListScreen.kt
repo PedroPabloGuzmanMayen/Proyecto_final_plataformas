@@ -30,6 +30,8 @@ import androidx.navigation.NavController
 import com.example.proyectofinal.Model.TaskModel
 import com.example.proyectofinal.Navigation.AppScreens
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
+import com.example.proyectofinal.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +43,7 @@ fun ListScreen(navController: NavController, sharedViewModel: SharedViewModel, u
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Tus tareas", fontSize = 20.sp, textAlign = TextAlign.Center)
+                    Text(text = stringResource(id = R.string.YourLists), fontSize = 30.sp, textAlign = TextAlign.Center)
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = "#f27e74".color)
             )
@@ -51,7 +53,8 @@ fun ListScreen(navController: NavController, sharedViewModel: SharedViewModel, u
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 navController.navigate("createList/${username}")
-            }) {
+            }
+            ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
         }
@@ -78,7 +81,7 @@ fun TaskItem(item: String, navController: NavController, username: String){
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
-            .clickable(onClick = { navController.navigate("ActivityList/${username}/${item}")})
+            .clickable(onClick = { navController.navigate("ActivityList/${username}/${item}") })
     ){
         Text(item)
     }

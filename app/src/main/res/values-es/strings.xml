@@ -8,4 +8,11 @@
     <string name = "Alert1">Contraseña incorrecta</string>
     <string name = "Alert2">Usuario incorrecto</string>
     <string name = "Login">Iniciar sesión</string>
+    <string name = "Save"> Guardar</string>
+    <string name = "date">Selecciona la fecha</string>
+    <string name = "time">Selecciona la hora</string>
+    <string name = "taskname">Nombre de la tarea</string>
+    <string name = "createTask">Crear tarea</string>
+    <string name ="YourLists">Tus listas</string>
+    <string name = "Yourtasks">Tus tareas</string>
 </resources>
