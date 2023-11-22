@@ -3,6 +3,8 @@ package com.example.proyectofinal.Interface
 
 
 import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -34,6 +36,7 @@ import androidx.compose.material3.TextField
 
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,6 +48,7 @@ import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 
 
@@ -56,6 +60,7 @@ import androidx.core.app.AlarmManagerCompat
 
 import androidx.navigation.NavController
 import com.example.proyectofinal.AlarmReceiver
+import com.example.proyectofinal.Interface.NotificacionProgramada.Companion.NOTIFICATION_ID
 import com.example.proyectofinal.Model.TaskModel
 import com.example.proyectofinal.R
 
@@ -64,6 +69,7 @@ import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.datetime.time.timepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.vanpra.composematerialdialogs.title
+
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -77,6 +83,9 @@ import java.time.format.DateTimeFormatter
 @Composable
 
 fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, username: String?, listName: String?){
+
+    val context = LocalContext.current
+    crearCanalNotificaciones("CanalAlarmas", context)
     var alert by remember {mutableStateOf("")}
     var name by remember { mutableStateOf("") }
     var pickedDate by remember{ mutableStateOf(LocalDate.now()) }
@@ -143,6 +152,8 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, u
             Spacer(modifier = Modifier.size(30.dp))
 
             Button(onClick = {
+                val userDateTime = LocalDateTime.of(pickedDate, pickedHour)
+                notificacionProgramada(context, userDateTime)
 
                 if (pickedDate.isBefore(LocalDate.now()) || (pickedDate.isEqual(LocalDate.now()) && pickedHour.isBefore(LocalTime.now()))){
                     alert = "La fecha no puede ser anterior a hoy"
@@ -197,35 +208,41 @@ fun TaskScreen(navController: NavController, sharedViewModel: SharedViewModel, u
 val String.color
     get() = Color(android.graphics.Color.parseColor(this))
 
-fun scheduleAlarm(context: Context, taskName: String, date: LocalDate, time: LocalTime) {
-    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    val intent = Intent(context, AlarmReceiver::class.java).apply {
-        putExtra("taskName", taskName)
+@Composable
+fun Notifiacaciones(){
+    val context = LocalContext.current
+    val id_canal = "CanalAlarmas"
+    val idNotificacion = 0
+    LaunchedEffect(Unit){
+        crearCanalNotificaciones(id_canal, context)
     }
-    val pendingIntent = PendingIntent.getBroadcast(
-        context,
-        0,
-        intent,
-        PendingIntent.FLAG_UPDATE_CURRENT
+
+}
+
+fun crearCanalNotificaciones(idCanal: String, context: Context){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        val nombre = "CanalAlarmas"
+        val descripcion = "Canal para las alarmas"
+        val importancia = NotificationManager.IMPORTANCE_HIGH
+        val canal = NotificationChannel(idCanal, nombre, importancia).apply{
+            description = descripcion
+        }
+        val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(canal)
+
+
+    }
+}
+
+fun notificacionProgramada(context: Context, dateTime: LocalDateTime){
+    val intent = Intent(context, NotificacionProgramada::class.java)
+    val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT )
+    var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    val triggerAtMillis = dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+
+    alarmManager.setExact(
+        AlarmManager.RTC_WAKEUP,
+        triggerAtMillis,
+        pendingIntent
     )
-
-    // Combine the date and time to create a timestamp
-    val dateTime = LocalDateTime.of(date, time)
-    val timestamp = dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-
-    // Set the alarm based on the Android version
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            timestamp,
-            pendingIntent
-        )
-    } else {
-        AlarmManagerCompat.setExact(
-            alarmManager,
-            AlarmManager.RTC_WAKEUP,
-            timestamp,
-            pendingIntent
-        )
-    }
 }
