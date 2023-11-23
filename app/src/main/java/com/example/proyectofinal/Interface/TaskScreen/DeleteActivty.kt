@@ -3,6 +3,7 @@ package com.example.proyectofinal.Interface.TaskScreen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -22,6 +23,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -54,7 +56,7 @@ fun deleteActivity(navController: NavController, sharedViewModel: ActivityViewMo
         }
 // Aquí modifique
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding).wrapContentSize(Alignment.Center)){
+        Column(modifier = Modifier.padding(innerPadding).fillMaxSize()){
 // Aquí termina , horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
             Button(
 
@@ -64,6 +66,7 @@ fun deleteActivity(navController: NavController, sharedViewModel: ActivityViewMo
 
 
                 },
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 colors = ButtonDefaults.buttonColors(Color.Red)
             ) {
                 androidx.compose.material3.Text(stringResource(id = R.string.DeleteTask), color = Color.Black)
