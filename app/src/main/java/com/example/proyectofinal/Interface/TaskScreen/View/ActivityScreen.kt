@@ -41,6 +41,7 @@ import com.example.proyectofinal.R
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -94,8 +95,8 @@ fun ActivityScreen(navController: NavController, sharedViewModel: ActivityViewMo
 @Composable
 fun activityComponent(item: TaskModel, navController: NavController, username: String, listname: String){
     var alert by remember {mutableStateOf("")}
-    val formatter = DateTimeFormatter.ofPattern("MMM dd yyyy")
-    val timeformat = DateTimeFormatter.ofPattern("hh:mm a")
+    val formatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH)
+    val timeformat = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
     val localDate = LocalDate.parse(item.date, formatter)
     val localtime = LocalTime.parse(item.time, timeformat)
     if(localDate.isBefore(LocalDate.now()) || (localtime.isBefore(LocalTime.now()) && localDate.isEqual(LocalDate.now()))){

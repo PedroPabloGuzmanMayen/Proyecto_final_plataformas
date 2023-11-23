@@ -77,6 +77,7 @@ import java.time.LocalTime
 import java.time.ZoneId
 
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -93,12 +94,12 @@ fun TaskScreen(navController: NavController, sharedViewModel: ActivityViewModel,
     val contentList = remember { mutableStateListOf<TaskModel>() }
     val formattedDate by remember {
         derivedStateOf {
-            DateTimeFormatter.ofPattern("MMM dd yyyy").format(pickedDate)
+            DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH).format(pickedDate)
         }
     }
     val formattedTime by remember {
         derivedStateOf {
-            DateTimeFormatter.ofPattern("hh:mm a").format(pickedHour)
+            DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH).format(pickedHour)
         }
     }
     val dateDialogState = rememberMaterialDialogState()

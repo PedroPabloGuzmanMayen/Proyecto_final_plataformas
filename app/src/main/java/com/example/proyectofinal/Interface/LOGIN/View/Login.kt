@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -39,6 +42,7 @@ fun LoginScreen(navController: NavController){
     var alert by remember {mutableStateOf("")}
     var userList by remember { mutableStateOf<List<String>>(emptyList()) }
     var passwordList by remember { mutableStateOf<List<String>>(emptyList()) }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(key1 = true) {
         userList = viewmodel.usersList()
@@ -76,6 +80,7 @@ fun LoginScreen(navController: NavController){
         TextField(
             value = password,
             onValueChange = { password = it },
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
 
             label = { Text(stringResource(id = R.string.Password)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
