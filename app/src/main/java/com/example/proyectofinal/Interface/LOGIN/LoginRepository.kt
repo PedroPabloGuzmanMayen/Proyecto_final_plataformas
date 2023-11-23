@@ -1,6 +1,7 @@
 package com.example.proyectofinal.Interface.LOGIN
 
 import androidx.compose.runtime.mutableStateListOf
+import com.example.proyectofinal.Model.User
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -24,6 +25,10 @@ class LoginRepository(private val db: FirebaseFirestore =  FirebaseFirestore.get
             list.add(item.getString("password")!!)
         }
         return list
+    }
+
+    suspend fun addUser(user: User){
+        db.collection("Users").document(user.username).set(user).await()
     }
 
 

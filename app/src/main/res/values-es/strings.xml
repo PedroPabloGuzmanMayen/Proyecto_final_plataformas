@@ -22,4 +22,5 @@
     <string name = "DeleteTask">Eliminar tarea</string>
     <string name ="delete">Eliminar</string>
     <string name ="overdue">Esta tarea ya venció</string>
+    <string name ="register">Registrarse</string>
 </resources>
