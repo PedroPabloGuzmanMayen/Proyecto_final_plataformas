@@ -79,20 +79,6 @@ fun Register(navController: NavController){
         Button(
             modifier = Modifier.padding(top = 16.dp),
             onClick = {
-                if (userList.contains(name)) {
-
-                    val index = userList.indexOf(name)
-                    if (passwordList[userList.indexOf(name)] == password){
-                        navController.navigate("Home/${name}")
-                    }
-                    else {
-
-                        alert = "Usuario incorrecto"
-                    }
-                } else {
-
-                    alert = "Contraseña incorrecta"
-                }
 
             },
             colors = ButtonDefaults.buttonColors("#fcb603".color)
@@ -100,8 +86,6 @@ fun Register(navController: NavController){
             Text(stringResource(id = R.string.Login), color = Color.Black)
         }
 
-
-        Text(alert, color = Color.Red)
 
 
     }
