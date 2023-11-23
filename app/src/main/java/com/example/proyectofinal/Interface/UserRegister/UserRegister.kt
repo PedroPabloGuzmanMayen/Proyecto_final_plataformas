@@ -33,18 +33,10 @@ import com.example.proyectofinal.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Register(navController: NavController){
-    val viewmodel: LoginViewModel = viewModel()
+    val viewmodel: UserRegisterViewModel = viewModel()
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    var alert by remember {mutableStateOf("")}
-    var userList by remember { mutableStateOf<List<String>>(emptyList()) }
-    var passwordList by remember { mutableStateOf<List<String>>(emptyList()) }
-
-    LaunchedEffect(key1 = true) {
-        userList = viewmodel.usersList()
-        passwordList = viewmodel.passwordsList()
-    }
 
 
     Column(

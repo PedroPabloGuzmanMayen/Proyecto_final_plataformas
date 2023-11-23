@@ -98,7 +98,7 @@ fun activityComponent(item: TaskModel, navController: NavController, username: S
     val localDate = LocalDate.parse(item.date, formatter)
     val localtime = LocalTime.parse(item.time, timeformat)
     if(localDate.isBefore(LocalDate.now()) || (localtime.isBefore(LocalTime.now()) && localDate.isEqual(LocalDate.now()))){
-        alert = "This task is overdue"
+        alert = stringResource(id = R.string.overdue)
     }
 
     Card(
@@ -109,7 +109,7 @@ fun activityComponent(item: TaskModel, navController: NavController, username: S
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
-            .clickable(onClick={navController.navigate("deleteScreen/${username}/${listname}/${item.name}")})
+            .clickable(onClick = { navController.navigate("deleteScreen/${username}/${listname}/${item.name}") })
     ){
         Column(){
             Text(text = item.name, fontSize = 20.sp, textAlign = TextAlign.Center)

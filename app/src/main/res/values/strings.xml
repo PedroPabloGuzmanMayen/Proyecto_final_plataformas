@@ -20,4 +20,5 @@
     <string name = "Listname">List name</string>
     <string name = "DeleteTask">Delete task</string>
     <string name ="delete">Delete</string>
+    <string name ="overdue">This task is overdue</string>
 </resources>
