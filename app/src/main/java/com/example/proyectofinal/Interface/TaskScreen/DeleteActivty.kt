@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Text
@@ -51,10 +52,10 @@ fun deleteActivity(navController: NavController, sharedViewModel: ActivityViewMo
 
 
         }
-
+// Aquí modifique
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
-
+        Column(modifier = Modifier.padding(innerPadding).wrapContentSize(Alignment.Center)){
+// Aquí termina , horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
             Button(
 
                 onClick = {
