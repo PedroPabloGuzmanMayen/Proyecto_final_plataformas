@@ -15,4 +15,8 @@
     <string name = "createTask">Crear tarea</string>
     <string name ="YourLists">Tus listas</string>
     <string name = "Yourtasks">Tus tareas</string>
+    <string name = "Selectdate">Selecciona la fecha</string>
+    <string name = "SelectTime">Select time</string>
+    <string name = "CreateList">Crear lista</string>
+    <string name = "Listname">Nombre de la lista</string>
 </resources>

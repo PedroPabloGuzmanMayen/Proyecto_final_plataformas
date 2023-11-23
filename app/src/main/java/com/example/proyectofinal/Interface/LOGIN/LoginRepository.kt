@@ -1,4 +1,4 @@
-package com.example.proyectofinal
+package com.example.proyectofinal.Interface.LOGIN
 
 import androidx.compose.runtime.mutableStateListOf
 import com.google.firebase.firestore.FirebaseFirestore

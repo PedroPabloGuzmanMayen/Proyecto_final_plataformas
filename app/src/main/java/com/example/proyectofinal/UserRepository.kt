@@ -29,14 +29,6 @@ class UserRepository(private val db: FirebaseFirestore =  FirebaseFirestore.getI
         }
     }
 
-    suspend fun checkUser(username: String): Boolean{
-        val query = db.collection("Users").document(username).get().await()
-        if (query.exists()){
-            return true
-        }else{
-            return false
-        }
-    }
 
     suspend fun getUserLists(username: String): MutableList<String>{
         val query = db.collection("Users").document(username).collection("Lists").get().await()

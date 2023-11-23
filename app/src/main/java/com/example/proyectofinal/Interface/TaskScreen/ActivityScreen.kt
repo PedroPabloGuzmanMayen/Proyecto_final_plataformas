@@ -1,7 +1,6 @@
-package com.example.proyectofinal.Interface
+package com.example.proyectofinal.Interface.TaskScreen
 
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,22 +22,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.proyectofinal.Model.TaskModel
-import com.example.proyectofinal.Navigation.AppScreens
-import androidx.compose.runtime.collectAsState
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ActivityScreen(navController: NavController, sharedViewModel: SharedViewModel, username: String?, listName: String?) {
-    sharedViewModel.getActivities(username.orEmpty(), listName.orEmpty())
+fun ActivityScreen(navController: NavController, sharedViewModel: ActivityViewModel, username: String?, listName: String?) {
+    LaunchedEffect(Unit){
+        sharedViewModel.getActivities(username.orEmpty(), listName.orEmpty())
+    }
+
     val contentList = sharedViewModel.contentList
     Scaffold(
         topBar = {

@@ -9,8 +9,10 @@ import androidx.core.app.NotificationCompat
 class NotificacionProgramada: BroadcastReceiver() {
     companion object{
         const val NOTIFICATION_ID = 5
+        const val EXTRA_TASK_NAME = "extra_task_name"
     }
     override fun onReceive(p0: Context, p1: Intent?) {
+
         crearNotifiacion(p0)
     }
     private fun crearNotifiacion(context: Context) {

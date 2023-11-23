@@ -14,4 +14,8 @@
     <string name = "createTask">Create task</string>
     <string name ="YourLists">Your lists</string>
     <string name = "Yourtasks">Your tasks</string>
+    <string name = "Selectdate">Select date</string>
+    <string name = "SelectTime">Select time</string>
+    <string name = "CreateList">Create list</string>
+    <string name = "Listname">List name</string>
 </resources>

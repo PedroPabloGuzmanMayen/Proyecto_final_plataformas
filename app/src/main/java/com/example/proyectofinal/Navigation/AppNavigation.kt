@@ -8,11 +8,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.proyectofinal.Interface.ActivityScreen
-import com.example.proyectofinal.Interface.AddListScreen
-import com.example.proyectofinal.Interface.ListScreen
-import com.example.proyectofinal.Interface.SharedViewModel
-import com.example.proyectofinal.Interface.TaskScreen
+import com.example.proyectofinal.Interface.TaskScreen.ActivityScreen
+import com.example.proyectofinal.Interface.ListView.AddListScreen
+import com.example.proyectofinal.Interface.ListView.ListScreen
+import com.example.proyectofinal.Interface.ListView.ListViewModel
+import com.example.proyectofinal.Interface.TaskScreen.ActivityViewModel
+import com.example.proyectofinal.Interface.TaskScreen.TaskScreen
 
 
 @Composable
@@ -20,6 +21,8 @@ import com.example.proyectofinal.Interface.TaskScreen
 fun Navigation(){
     val navController = rememberNavController()
     val sharedViewModel: SharedViewModel = viewModel()
+    val listviewModel: ListViewModel = viewModel()
+    val activityViewModel: ActivityViewModel = viewModel()
     NavHost(navController = navController, startDestination = AppScreens.Login.route){
         composable(AppScreens.Login.route){
             LoginScreen(navController)
@@ -32,13 +35,13 @@ fun Navigation(){
         arguments = listOf(navArgument(name="username"){
             type = NavType.StringType
         })){ backStackEntry ->
-            AddListScreen(navController = navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"))
+            AddListScreen(navController = navController, sharedViewModel = listviewModel, username = backStackEntry.arguments?.getString("username"))
         }
         composable(AppScreens.Home.route + "/{username}",
             arguments = listOf(navArgument(name="username"){
                 type = NavType.StringType
         })) { backStackEntry ->
-            ListScreen(navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"))
+            ListScreen(navController, sharedViewModel = listviewModel, username = backStackEntry.arguments?.getString("username"))
         }
         composable(AppScreens.ActivityList.route + "/{username}/{listName}",
             arguments = listOf(navArgument(name="username"){
@@ -46,7 +49,7 @@ fun Navigation(){
             }, navArgument(name="listName"){
                 type = NavType.StringType
             })) { backStackEntry ->
-            ActivityScreen(navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"), listName = backStackEntry.arguments?.getString("listName"))
+            ActivityScreen(navController, sharedViewModel = activityViewModel, username = backStackEntry.arguments?.getString("username"), listName = backStackEntry.arguments?.getString("listName"))
         }
         composable(AppScreens.TaskDetails.route + "/{username}/{listName}",
             arguments = listOf(navArgument(name="username"){
@@ -54,7 +57,7 @@ fun Navigation(){
             }, navArgument(name="listName"){
                 type = NavType.StringType
             })) { backStackEntry ->
-            TaskScreen(navController = navController, sharedViewModel = sharedViewModel, username = backStackEntry.arguments?.getString("username"), listName = backStackEntry.arguments?.getString("listName"))
+            TaskScreen(navController = navController, sharedViewModel = activityViewModel, username = backStackEntry.arguments?.getString("username"), listName = backStackEntry.arguments?.getString("listName"))
         }
     }
 
