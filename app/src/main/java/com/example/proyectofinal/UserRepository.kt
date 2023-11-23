@@ -15,7 +15,7 @@ class UserRepository(private val db: FirebaseFirestore =  FirebaseFirestore.getI
 
             if (query.exists()) {
                 val user: User = User(
-                    name = query.getString("name")!!,
+                    username = query.getString("name")!!,
                     password = query.getString("password")!!
                 )
                 user

@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.proyectofinal.Interface.LOGIN.Register
 import com.example.proyectofinal.Interface.TaskScreen.ActivityScreen
 import com.example.proyectofinal.Interface.ListView.AddListScreen
 import com.example.proyectofinal.Interface.ListView.ListScreen
@@ -15,6 +16,7 @@ import com.example.proyectofinal.Interface.ListView.ListViewModel
 import com.example.proyectofinal.Interface.TaskScreen.ActivityViewModel
 import com.example.proyectofinal.Interface.TaskScreen.TaskScreen
 import com.example.proyectofinal.Interface.TaskScreen.deleteActivity
+import com.example.proyectofinal.Interface.firstScreen
 
 
 @Composable
@@ -24,12 +26,15 @@ fun Navigation(){
 
     val listviewModel: ListViewModel = viewModel()
     val activityViewModel: ActivityViewModel = viewModel()
-    NavHost(navController = navController, startDestination = AppScreens.Login.route){
+    NavHost(navController = navController, startDestination = AppScreens.firstScreen.route){
+        composable(AppScreens.firstScreen.route){
+            firstScreen(navController = navController)
+        }
         composable(AppScreens.Login.route){
             LoginScreen(navController)
         }
         composable(AppScreens.Register.route){
-
+            Register(navController = navController)
         }
 
         composable(AppScreens.createList.route + "/{username}",
