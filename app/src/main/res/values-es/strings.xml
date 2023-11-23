@@ -19,4 +19,6 @@
     <string name = "SelectTime">Select time</string>
     <string name = "CreateList">Crear lista</string>
     <string name = "Listname">Nombre de la lista</string>
+    <string name = "DeleteTask">Eliminar tarea</string>
+    <string name ="delete">Eliminar</string>
 </resources>

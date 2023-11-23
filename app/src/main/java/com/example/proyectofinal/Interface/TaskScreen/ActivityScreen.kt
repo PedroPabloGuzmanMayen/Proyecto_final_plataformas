@@ -1,6 +1,7 @@
 package com.example.proyectofinal.Interface.TaskScreen
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,13 +24,22 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyectofinal.Model.TaskModel
+import com.example.proyectofinal.R
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,9 +54,9 @@ fun ActivityScreen(navController: NavController, sharedViewModel: ActivityViewMo
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Tus tareas", fontSize = 20.sp, textAlign = TextAlign.Center)
+                    Text(text = stringResource(id = R.string.Yourtasks), fontSize = 30.sp, textAlign = TextAlign.Center)
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = "#f27e74".color),
+
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack()}) {
                         Icon(
@@ -72,7 +82,7 @@ fun ActivityScreen(navController: NavController, sharedViewModel: ActivityViewMo
 
             LazyColumn() {
                 items(contentList.size) { index ->
-                    activityComponent(item = contentList[index], navController)
+                    activityComponent(item = contentList[index], navController, username.toString(), listName.toString())
                 }
             }
             Spacer(modifier = Modifier.size(100.dp))
@@ -81,7 +91,16 @@ fun ActivityScreen(navController: NavController, sharedViewModel: ActivityViewMo
 }
 
 @Composable
-fun activityComponent(item: TaskModel, navController: NavController){
+fun activityComponent(item: TaskModel, navController: NavController, username: String, listname: String){
+    var alert by remember {mutableStateOf("")}
+    val formatter = DateTimeFormatter.ofPattern("MMM dd yyyy")
+    val timeformat = DateTimeFormatter.ofPattern("hh:mm a")
+    val localDate = LocalDate.parse(item.date, formatter)
+    val localtime = LocalTime.parse(item.time, timeformat)
+    if(localDate.isBefore(LocalDate.now()) || (localtime.isBefore(LocalTime.now()) && localDate.isEqual(LocalDate.now()))){
+        alert = "This task is overdue"
+    }
+
     Card(
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(
@@ -90,8 +109,15 @@ fun activityComponent(item: TaskModel, navController: NavController){
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
+            .clickable(onClick={navController.navigate("deleteScreen/${username}/${listname}/${item.name}")})
     ){
-        Text(item.name)
+        Column(){
+            Text(text = item.name, fontSize = 20.sp, textAlign = TextAlign.Center)
+            Text(text = item.date, fontSize = 20.sp, textAlign = TextAlign.Center)
+            Text(text = item.time, fontSize = 20.sp, textAlign = TextAlign.Center)
+            Text(alert, fontSize = 20.sp, textAlign = TextAlign.Center)
+        }
+
     }
 
 }

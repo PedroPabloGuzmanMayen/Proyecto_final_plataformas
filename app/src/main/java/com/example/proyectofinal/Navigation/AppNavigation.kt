@@ -14,13 +14,14 @@ import com.example.proyectofinal.Interface.ListView.ListScreen
 import com.example.proyectofinal.Interface.ListView.ListViewModel
 import com.example.proyectofinal.Interface.TaskScreen.ActivityViewModel
 import com.example.proyectofinal.Interface.TaskScreen.TaskScreen
+import com.example.proyectofinal.Interface.TaskScreen.deleteActivity
 
 
 @Composable
 
 fun Navigation(){
     val navController = rememberNavController()
-    val sharedViewModel: SharedViewModel = viewModel()
+
     val listviewModel: ListViewModel = viewModel()
     val activityViewModel: ActivityViewModel = viewModel()
     NavHost(navController = navController, startDestination = AppScreens.Login.route){
@@ -58,6 +59,16 @@ fun Navigation(){
                 type = NavType.StringType
             })) { backStackEntry ->
             TaskScreen(navController = navController, sharedViewModel = activityViewModel, username = backStackEntry.arguments?.getString("username"), listName = backStackEntry.arguments?.getString("listName"))
+        }
+        composable(AppScreens.deleteScreen.route + "/{username}/{listName}/{activityName}",
+            arguments = listOf(navArgument(name="username"){
+                type = NavType.StringType
+            }, navArgument(name="listName"){
+                type = NavType.StringType
+            }, navArgument(name="activityName"){
+                type = NavType.StringType
+            })) { backStackEntry ->
+            deleteActivity(navController = navController, sharedViewModel = activityViewModel, username = backStackEntry.arguments?.getString("username"), listName = backStackEntry.arguments?.getString("listName"), activity = backStackEntry.arguments?.getString("activityName"))
         }
     }
 

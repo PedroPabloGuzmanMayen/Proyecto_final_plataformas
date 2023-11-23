@@ -18,4 +18,6 @@
     <string name = "SelectTime">Select time</string>
     <string name = "CreateList">Create list</string>
     <string name = "Listname">List name</string>
+    <string name = "DeleteTask">Delete task</string>
+    <string name ="delete">Delete</string>
 </resources>

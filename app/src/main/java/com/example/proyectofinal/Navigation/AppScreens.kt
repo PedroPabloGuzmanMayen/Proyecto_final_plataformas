@@ -8,4 +8,6 @@ sealed class AppScreens(val route: String) {
     object TaskDetails: AppScreens("TaskDetails")
 
     object ActivityList: AppScreens("ActivityList")
+
+    object deleteScreen: AppScreens("deleteScreen")
 }

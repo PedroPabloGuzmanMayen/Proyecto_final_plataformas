@@ -20,4 +20,10 @@ class ActivityViewModel(private val repository: ActivtyRepository = ActivtyRepos
             repository.addActivity(username, listName, activity)
         }
     }
+
+    fun deleteActivity(username: String, listname: String, activity:String){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteActivity(username, listname, activity)
+        }
+    }
 }

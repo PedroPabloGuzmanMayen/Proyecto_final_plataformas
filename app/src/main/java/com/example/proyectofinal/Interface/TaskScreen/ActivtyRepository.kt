@@ -24,4 +24,8 @@ class ActivtyRepository(private val db: FirebaseFirestore =  FirebaseFirestore.g
 
         db.collection("Users").document(username).collection("Lists").document(listName).collection("Activities").document(activity.name).set(activity).await()
     }
+
+    suspend fun deleteActivity(username: String, listname: String, activity:String){
+        db.collection("Users").document(username).collection("Lists").document(listname).collection("Activities").document(activity).delete().await()
+    }
 }
