@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -40,6 +41,7 @@ fun Register(navController: NavController){
     var userList by remember { mutableStateOf<List<String>>(emptyList()) }
     var passwordList by remember { mutableStateOf<List<String>>(emptyList()) }
     var alert by remember {mutableStateOf("")}
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = true) {
         userList = viewmodel.usersList()
@@ -90,7 +92,7 @@ fun Register(navController: NavController){
             onClick = {
 
                 if(name == "" || name in userList){
-                    alert = "Usuario ya existe o no ha ingresado un usuario"
+                    alert = context.resources.getString(R.string.alreadyexists)
 
                 }
                 else{

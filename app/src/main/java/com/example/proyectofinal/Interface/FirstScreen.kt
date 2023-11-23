@@ -11,9 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.proyectofinal.Interface.TaskScreen.View.color
+import com.example.proyectofinal.R
 
 @Composable
 fun firstScreen(navController: NavController) {
@@ -25,15 +27,17 @@ fun firstScreen(navController: NavController) {
             modifier = Modifier.padding(10.dp),
             colors = ButtonDefaults.buttonColors("#fcb603".color)
         ) {
-            Text(text = "Login")
+            Text(text = stringResource(id = R.string.Login))
         }
-        Spacer(modifier = Modifier.padding(10.dp).size(20.dp))
+        Spacer(modifier = Modifier
+            .padding(10.dp)
+            .size(20.dp))
         Button(
             onClick = { navController.navigate("register") },
             modifier = Modifier.padding(10.dp),
             colors = ButtonDefaults.buttonColors("#fcb603".color)
         ) {
-            Text(text = "Register")
+            Text(text = stringResource(id = R.string.register))
         }
 
 

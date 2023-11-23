@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import com.example.proyectofinal.R
 
 class NotificacionProgramada: BroadcastReceiver() {
     companion object{
@@ -22,11 +23,11 @@ class NotificacionProgramada: BroadcastReceiver() {
     private fun crearNotifiacion(context: Context, taskName: String) {
         val notificacion = NotificationCompat.Builder(context, "CanalAlarmas")
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle("Recordatorio")
-            .setContentText("Tienes una tarea pendiente: $taskName")
+            .setContentTitle(context.resources.getString(R.string.Reminder))
+            .setContentText(context.resources.getString(R.string.pendingTask) + taskName)
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText("Tienes una tarea pendiente: $taskName")
+                    .bigText(context.resources.getString(R.string.pendingTask) + taskName)
             )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()

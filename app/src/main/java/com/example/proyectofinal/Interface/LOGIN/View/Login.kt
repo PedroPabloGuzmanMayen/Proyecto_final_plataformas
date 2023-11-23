@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,6 +32,7 @@ import com.example.proyectofinal.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController){
+    val context = LocalContext.current
     val viewmodel: LoginViewModel = viewModel()
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -92,11 +94,11 @@ fun LoginScreen(navController: NavController){
                     }
                     else {
 
-                        alert = "Usuario incorrecto"
+                        alert = context.resources.getString(R.string.Alert1)
                     }
                 } else {
 
-                    alert = "Contraseña incorrecta"
+                    alert = context.resources.getString(R.string.Alert2)
                 }
 
             },

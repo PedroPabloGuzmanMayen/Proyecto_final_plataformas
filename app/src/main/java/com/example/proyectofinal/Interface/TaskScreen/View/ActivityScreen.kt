@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -115,7 +116,7 @@ fun activityComponent(item: TaskModel, navController: NavController, username: S
             Text(text = item.name, fontSize = 20.sp, textAlign = TextAlign.Center)
             Text(text = item.date, fontSize = 20.sp, textAlign = TextAlign.Center)
             Text(text = item.time, fontSize = 20.sp, textAlign = TextAlign.Center)
-            Text(alert, fontSize = 20.sp, textAlign = TextAlign.Center)
+            Text(alert, fontSize = 20.sp, textAlign = TextAlign.Center, color = Color.Red)
         }
 
     }

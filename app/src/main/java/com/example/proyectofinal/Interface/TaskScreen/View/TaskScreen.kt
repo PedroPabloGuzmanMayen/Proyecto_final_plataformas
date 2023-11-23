@@ -155,7 +155,7 @@ fun TaskScreen(navController: NavController, sharedViewModel: ActivityViewModel,
 
 
                 if (pickedDate.isBefore(LocalDate.now()) || (pickedDate.isEqual(LocalDate.now()) && pickedHour.isBefore(LocalTime.now()))){
-                    alert = "La fecha no puede ser anterior a hoy"
+                    alert = context.resources.getString(R.string.cannot)
                 }
                 else{
                     val newTask = TaskModel(name, formattedDate, formattedTime)
@@ -194,7 +194,7 @@ fun TaskScreen(navController: NavController, sharedViewModel: ActivityViewModel,
             positiveButton("Ok"){
 
             }
-            negativeButton("Cancel")
+            negativeButton(stringResource(id = R.string.Cancel))
         }
     ) {
         title(stringResource(id = R.string.SelectTime))

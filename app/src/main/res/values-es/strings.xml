@@ -23,4 +23,9 @@
     <string name ="delete">Eliminar</string>
     <string name ="overdue">Esta tarea ya venció</string>
     <string name ="register">Registrarse</string>
+    <string name ="alreadyexists">Este usuario ya existe</string>
+    <string name ="Reminder">Recordatorio</string>
+    <string name ="pendingTask">Tienes una tarea pendiente: </string>
+    <string name ="cannot">No puedes elegir una fecha anterior a hoy</string>
+    <string name ="Cancel">Cancelar</string>
 </resources>

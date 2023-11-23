@@ -22,4 +22,9 @@
     <string name ="delete">Delete</string>
     <string name ="overdue">This task is overdue</string>
     <string name ="register">Register</string>
+    <string name ="alreadyexists">This user already exists</string>
+    <string name ="Reminder">Reminder</string>
+    <string name ="pendingTask">You have a pending task: </string>
+    <string name ="cannot">You cannot choose a date before today</string>
+    <string name ="Cancel">Cancel</string>
 </resources>
