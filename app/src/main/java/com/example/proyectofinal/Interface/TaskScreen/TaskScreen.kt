@@ -59,6 +59,7 @@ import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavController
 import com.example.proyectofinal.Interface.NotificacionProgramada
+import com.example.proyectofinal.Interface.NotificacionProgramada.Companion.EXTRA_TASK_NAME
 import com.example.proyectofinal.Interface.NotificacionProgramada.Companion.NOTIFICATION_ID
 import com.example.proyectofinal.Model.TaskModel
 import com.example.proyectofinal.R
@@ -162,7 +163,7 @@ fun TaskScreen(navController: NavController, sharedViewModel: ActivityViewModel,
                     sharedViewModel.contentList.add(newTask)
                     sharedViewModel.addActivity(username.orEmpty(), listName.orEmpty(), newTask)
                     val userDateTime = LocalDateTime.of(pickedDate, pickedHour)
-                    notificacionProgramada(context, userDateTime)
+                    notificacionProgramada(context, userDateTime, name)
                     navController.popBackStack()
 
                 }
@@ -233,9 +234,12 @@ fun crearCanalNotificaciones(idCanal: String, context: Context){
     }
 }
 
-fun notificacionProgramada(context: Context, dateTime: LocalDateTime){
-    val intent = Intent(context, NotificacionProgramada::class.java)
-    val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT )
+fun notificacionProgramada(context: Context, dateTime: LocalDateTime, name: String){
+    val intent = Intent(context, NotificacionProgramada::class.java).apply {
+        putExtra(EXTRA_TASK_NAME, name)
+    }
+    val requestCode = System.currentTimeMillis().toInt()
+    val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT )
     var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     val triggerAtMillis = dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 

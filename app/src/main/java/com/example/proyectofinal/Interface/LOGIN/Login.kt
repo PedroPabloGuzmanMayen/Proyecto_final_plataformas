@@ -34,7 +34,6 @@ fun LoginScreen(navController: NavController){
     val viewmodel: LoginViewModel = viewModel()
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var user: String? = "dalas"
     var alert by remember {mutableStateOf("")}
     var userList by remember { mutableStateOf<List<String>>(emptyList()) }
     var passwordList by remember { mutableStateOf<List<String>>(emptyList()) }
