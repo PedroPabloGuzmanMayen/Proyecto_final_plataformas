@@ -1,4 +1,4 @@
-package com.example.proyectofinal.Interface.ListView
+package com.example.proyectofinal.Interface.ListView.View
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,7 +28,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.proyectofinal.Interface.TaskScreen.color
+import com.example.proyectofinal.Interface.ListView.ViewModel.ListViewModel
+import com.example.proyectofinal.Interface.TaskScreen.View.color
 import com.example.proyectofinal.R
 
 @OptIn(ExperimentalMaterial3Api::class)

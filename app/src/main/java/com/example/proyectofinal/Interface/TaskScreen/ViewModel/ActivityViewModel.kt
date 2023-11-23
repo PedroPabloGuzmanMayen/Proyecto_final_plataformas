@@ -1,12 +1,12 @@
-package com.example.proyectofinal.Interface.TaskScreen
+package com.example.proyectofinal.Interface.TaskScreen.ViewModel
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.proyectofinal.Interface.TaskScreen.Repositry.ActivtyRepository
 import com.example.proyectofinal.Model.TaskModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.checkerframework.checker.units.qual.A
 
 class ActivityViewModel(private val repository: ActivtyRepository = ActivtyRepository()): ViewModel() {
     var contentList: MutableList<TaskModel> = mutableStateListOf<TaskModel>()

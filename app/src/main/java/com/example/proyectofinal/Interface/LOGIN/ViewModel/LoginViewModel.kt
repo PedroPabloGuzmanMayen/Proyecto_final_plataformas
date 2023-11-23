@@ -1,7 +1,8 @@
-package com.example.proyectofinal.Interface.LOGIN
+package com.example.proyectofinal.Interface.LOGIN.ViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.proyectofinal.Interface.LOGIN.Repository.LoginRepository
 import com.example.proyectofinal.Model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

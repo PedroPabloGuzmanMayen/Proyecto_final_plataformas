@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.proyectofinal.Interface.TaskScreen.color
+import com.example.proyectofinal.Interface.TaskScreen.View.color
 
 @Composable
 fun firstScreen(navController: NavController) {

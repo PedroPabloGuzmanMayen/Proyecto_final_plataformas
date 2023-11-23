@@ -1,4 +1,4 @@
-package com.example.proyectofinal.Interface.ListView
+package com.example.proyectofinal.Interface.ListView.View
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
+import com.example.proyectofinal.Interface.ListView.ViewModel.ListViewModel
 import com.example.proyectofinal.R
 
 

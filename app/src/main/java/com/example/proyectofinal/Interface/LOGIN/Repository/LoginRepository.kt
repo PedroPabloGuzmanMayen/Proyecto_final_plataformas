@@ -1,4 +1,4 @@
-package com.example.proyectofinal.Interface.LOGIN
+package com.example.proyectofinal.Interface.LOGIN.Repository
 
 import androidx.compose.runtime.mutableStateListOf
 import com.example.proyectofinal.Model.User

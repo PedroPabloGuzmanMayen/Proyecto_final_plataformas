@@ -1,4 +1,4 @@
-package com.example.proyectofinal.Interface.TaskScreen
+package com.example.proyectofinal.Interface.TaskScreen.View
 
 
 
@@ -60,7 +60,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyectofinal.Interface.NotificacionProgramada
 import com.example.proyectofinal.Interface.NotificacionProgramada.Companion.EXTRA_TASK_NAME
-import com.example.proyectofinal.Interface.NotificacionProgramada.Companion.NOTIFICATION_ID
+import com.example.proyectofinal.Interface.TaskScreen.ViewModel.ActivityViewModel
 import com.example.proyectofinal.Model.TaskModel
 import com.example.proyectofinal.R
 

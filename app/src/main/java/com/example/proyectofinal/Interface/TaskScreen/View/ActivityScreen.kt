@@ -1,4 +1,4 @@
-package com.example.proyectofinal.Interface.TaskScreen
+package com.example.proyectofinal.Interface.TaskScreen.View
 
 
 import androidx.compose.foundation.clickable
@@ -21,7 +21,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.proyectofinal.Interface.TaskScreen.ViewModel.ActivityViewModel
 import com.example.proyectofinal.Model.TaskModel
 import com.example.proyectofinal.R
 import java.time.LocalDate

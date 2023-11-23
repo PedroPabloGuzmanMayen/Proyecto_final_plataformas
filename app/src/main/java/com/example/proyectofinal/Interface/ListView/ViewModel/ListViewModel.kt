@@ -1,9 +1,9 @@
-package com.example.proyectofinal.Interface.ListView
+package com.example.proyectofinal.Interface.ListView.ViewModel
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.proyectofinal.Model.TaskModel
+import com.example.proyectofinal.Interface.ListView.Repository.ListRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -1,10 +1,7 @@
-package com.example.proyectofinal.Interface.ListView
+package com.example.proyectofinal.Interface.ListView.Repository
 
 import androidx.compose.runtime.mutableStateListOf
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class ListRepository(private val db: FirebaseFirestore =  FirebaseFirestore.getInstance()) {

@@ -1,5 +1,3 @@
-package com.example.proyectofinal.Interface.LOGIN
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,25 +24,24 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.proyectofinal.Interface.TaskScreen.color
-import com.example.proyectofinal.Model.User
+import com.example.proyectofinal.Interface.TaskScreen.View.color
+import com.example.proyectofinal.Interface.LOGIN.ViewModel.LoginViewModel
 import com.example.proyectofinal.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Register(navController: NavController){
+fun LoginScreen(navController: NavController){
     val viewmodel: LoginViewModel = viewModel()
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var alert by remember {mutableStateOf("")}
     var userList by remember { mutableStateOf<List<String>>(emptyList()) }
     var passwordList by remember { mutableStateOf<List<String>>(emptyList()) }
-    var alert by remember {mutableStateOf("")}
 
     LaunchedEffect(key1 = true) {
         userList = viewmodel.usersList()
         passwordList = viewmodel.passwordsList()
     }
-
 
 
     Column(
@@ -54,11 +51,11 @@ fun Register(navController: NavController){
     ) {
         // Alineado al centro lo màs posible ambas cajas
         // Seccion de usuario
-        Image(
-            painter = painterResource(id = R.drawable.duo),
-            contentDescription = "Icono de bienvenida"
-            // Se utilizarà una imagen que android studio trae por defecto
-        )
+       Image(
+           painter = painterResource(id = R.drawable.lightbulb),
+           contentDescription = "Icono de usuario"
+           // Se utilizarà una imagen que android studio trae por defecto
+       )
         Text(
             stringResource(id = R.string.User),
             modifier = Modifier.padding(top = 16.dp)
@@ -87,25 +84,29 @@ fun Register(navController: NavController){
         Button(
             modifier = Modifier.padding(top = 16.dp),
             onClick = {
+                if (userList.contains(name)) {
 
-                if(name == "" || name in userList){
-                    alert = "Usuario ya existe o no ha ingresado un usuario"
+                    val index = userList.indexOf(name)
+                    if (passwordList[userList.indexOf(name)] == password){
+                        navController.navigate("Home/${name}")
+                    }
+                    else {
 
+                        alert = "Usuario incorrecto"
+                    }
+                } else {
+
+                    alert = "Contraseña incorrecta"
                 }
-                else{
-                    val newUser = User(name, password)
-                    viewmodel.addUser(newUser)
-                    navController.navigate("Home/${name}")
-                }
-
 
             },
             colors = ButtonDefaults.buttonColors("#fcb603".color)
         ) {
-            Text(stringResource(id = R.string.register), color = Color.Black)
+            Text(stringResource(id = R.string.Login), color = Color.Black)
         }
-        Text(alert, color = Color.Red)
 
+
+        Text(alert, color = Color.Red)
 
 
     }
